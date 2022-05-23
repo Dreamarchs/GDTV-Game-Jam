@@ -5,7 +5,7 @@ using UnityEngine;
 public class basicMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public BoxCollider2D grounding;
+    public Collider2D grounding;
     
     public float moveSpeed;
     public float stopSpeed;

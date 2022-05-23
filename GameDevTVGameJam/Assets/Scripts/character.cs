@@ -21,6 +21,8 @@ public class character : MonoBehaviour
         maxHP = startHP;
     }
 
+    public bool getPlayer() { return isPlayer; }
+
     public void Damage(int dam) 
     {
         HP -= Mathf.Abs(dam);
