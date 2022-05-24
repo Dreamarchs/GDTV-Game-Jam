@@ -9,7 +9,7 @@ public class character : MonoBehaviour
     int maxHP; // Maximum Health the character has
     public bool isPlayer; // Whether the character is friendly to the player or not
 
-    public void Start()
+    public virtual void Start()
     {
         //Making sure things start alive, at minimum
         if (startHP < 1)
@@ -27,7 +27,7 @@ public class character : MonoBehaviour
     {
         HP -= Mathf.Abs(dam);
         DeathCheck();
-        Debug.Log($"damaged {dam}");
+        //Debug.Log($"damaged {dam}");
     }
 
     public void Heal(int heal) 

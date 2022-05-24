@@ -30,13 +30,17 @@ public class basicMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump")) 
         {
-            if (grounded) 
+            if (grounding.IsTouching(cf.NoFilter()))
+            {
+                grounded = true;
+            }
+            else { grounded = false; }
+        if (grounded) 
             {
                 
-                if (grounding.IsTouching( cf.NoFilter()  )) 
-                {
+                
                     rb.AddForce(new Vector2(0, jumpHeight));
-                }
+                
                 
                 grounded = false;
                 jumping = true;
@@ -62,7 +66,7 @@ public class basicMovement : MonoBehaviour
             {
                 rb.AddForce(new Vector2(0, -airFloat * 2 * Time.deltaTime));
             }
-            if (rb.velocity.y == 0 && grounding.IsTouching(cf.NoFilter() ) )
+            if ( grounding.IsTouching(cf.NoFilter() ) )
             { 
                 grounded = true; 
             }

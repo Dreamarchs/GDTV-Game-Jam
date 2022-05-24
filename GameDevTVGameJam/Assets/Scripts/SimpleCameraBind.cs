@@ -14,7 +14,7 @@ public class SimpleCameraBind : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    // Update is called once per frame  
     void Update()
     {
         ///Since the camera transform is at the center of the camera, doing this keeps it centered
