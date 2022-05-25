@@ -11,8 +11,15 @@ public class PlayerHealth : character
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        
+        base.Update();
+
     }
+    public override void Damage(int dam)
+    {
+        base.Damage(dam);
+        Debug.Log("Player Damaged");
+    }
+
 }

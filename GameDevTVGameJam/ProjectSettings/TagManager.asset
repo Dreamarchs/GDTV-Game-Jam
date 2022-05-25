@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
+  - Attack
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Test
   - Water
   - UI
   - 
@@ -41,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Layer+1
+    uniqueID: 2493800963
     locked: 0

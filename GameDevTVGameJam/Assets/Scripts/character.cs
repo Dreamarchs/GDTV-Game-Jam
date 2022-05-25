@@ -8,6 +8,7 @@ public class character : MonoBehaviour
     int HP; // Health the character has
     int maxHP; // Maximum Health the character has
     public bool isPlayer; // Whether the character is friendly to the player or not
+    public int visibleHealth;
 
     public virtual void Start()
     {
@@ -21,9 +22,14 @@ public class character : MonoBehaviour
         maxHP = startHP;
     }
 
+    public virtual void Update() 
+    {
+        visibleHealth = HP;
+    }
+
     public bool getPlayer() { return isPlayer; }
 
-    public void Damage(int dam) 
+    public virtual void Damage(int dam) 
     {
         HP -= Mathf.Abs(dam);
         DeathCheck();

@@ -18,8 +18,9 @@ public class Runner : EnemyBase
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+        base.Update();
         Move();
     }
 
