@@ -6,8 +6,8 @@ public class Slime : EnemyBase
 {
 
     public bool isAggro; // Whether the slime will target the player or just hop randomly
-    public Vector2 minHop = new Vector2(4, 4); // Minimum hop, or the lowest values a slime will hop with
-    public Vector2 maxHop = new Vector2(24, 12); // Maximum hop, the highest values it will hop with.
+    public Vector2 minHop = new Vector2(100, 100); // Minimum hop, or the lowest values a slime will hop with
+    public Vector2 maxHop = new Vector2(200, 200); // Maximum hop, the highest values it will hop with.
     //A hop will work by random.ranging the x and y of min and max hop
     public float timer = 0;
     public float minTimer = 1;

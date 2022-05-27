@@ -14,8 +14,8 @@ TagManager:
   - Test
   - Water
   - UI
-  - 
-  - 
+  - Background
+  - Foreground
   - 
   - 
   - 
@@ -41,6 +41,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Layer-2
+    uniqueID: 846639123
+    locked: 0
+  - name: Layer-1
+    uniqueID: 863251625
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
