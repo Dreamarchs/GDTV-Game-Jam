@@ -191,6 +191,7 @@ public enum EnemyState
     Blocking,
     Running,
     Inactive,
+    Waiting,               
     Other
 
 }

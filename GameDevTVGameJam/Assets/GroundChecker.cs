@@ -35,10 +35,8 @@ public class GroundChecker : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        ContactFilter2D cf = new ContactFilter2D();
-        List<Collider2D> tempList = new List<Collider2D>();
-        col.OverlapCollider(cf.NoFilter(), tempList);
-        if (tempList.Count == 0) 
+
+        if ( !col.IsTouchingLayers() ) 
         {
             ground = false;
             
