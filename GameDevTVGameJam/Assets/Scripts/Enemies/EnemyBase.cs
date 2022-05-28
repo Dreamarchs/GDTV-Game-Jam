@@ -43,7 +43,7 @@ public class EnemyBase : character
     public override void Start()
     {
         base.Start();
-        Debug.Log("Test");
+       // Debug.Log("Test");
         if (_rigidBody2D == null) 
         {
             _rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
