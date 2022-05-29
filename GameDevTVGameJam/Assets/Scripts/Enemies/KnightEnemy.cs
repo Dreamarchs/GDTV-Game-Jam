@@ -66,7 +66,6 @@ public class KnightEnemy : EnemyBase
                 case EnemyState.Chasing: Chase(); break;
                 case EnemyState.Retreating: Retreat(); break;
             }
-            
         }
         else
         {

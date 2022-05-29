@@ -100,7 +100,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 2935772148724679956}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 988022cf24202ef48ace3bd60c6bfec8, type: 2}
+  m_Material: {fileID: 6200000, guid: df8cec5f5e2cc7248b5635cde9b39d17, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -123,7 +123,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 988022cf24202ef48ace3bd60c6bfec8, type: 2}
+  m_Material: {fileID: 6200000, guid: df8cec5f5e2cc7248b5635cde9b39d17, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812d8d2e588d31640b4d80d33af1573c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHP: 10
+  startHP: 2
   isPlayer: 0
   visibleHealth: 0
   acceleration: 1
@@ -158,7 +158,7 @@ MonoBehaviour:
   shieldRelay: {fileID: 2935772149830606754}
   isGrounded: 0
   _rigidBody2D: {fileID: 2935772148724679957}
-  bodyDamage: 0
+  bodyDamage: 1
   doesAttack: 0
   EnemyName: Slime
   enemyState: 6
@@ -169,7 +169,7 @@ MonoBehaviour:
   timer: 10
   minTimer: 0.5
   maxTimer: 2
-  isSticky: 1
+  isSticky: 0
 --- !u!1 &2935772148884256354
 GameObject:
   m_ObjectHideFlags: 0

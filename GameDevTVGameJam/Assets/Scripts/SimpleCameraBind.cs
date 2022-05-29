@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class SimpleCameraBind : MonoBehaviour
 {
+    public float xOffset = 0;
+    public float yOffset = 0;
+
     public Transform target;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +21,7 @@ public class SimpleCameraBind : MonoBehaviour
     void Update()
     {
         ///Since the camera transform is at the center of the camera, doing this keeps it centered
-        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+        transform.position = new Vector3(target.position.x + xOffset, target.position.y + yOffset, transform.position.z);
         
     }
 }

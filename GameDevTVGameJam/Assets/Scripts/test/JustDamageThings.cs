@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class JustDamageThings : MonoBehaviour
 {
+    public PlayerHealth ph;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (ph == null)
+            if (GetComponentInParent<PlayerHealth>())
+                ph = GetComponentInParent<PlayerHealth>();
+
     }
 
     // Update is called once per frame
@@ -20,7 +24,7 @@ public class JustDamageThings : MonoBehaviour
     {
         if (collision.GetComponent<character>()) 
         {
-            collision.SendMessage("Damage", 1);
+            collision.SendMessage("Damage", ph.SelfAS(1));
         }
         
     }

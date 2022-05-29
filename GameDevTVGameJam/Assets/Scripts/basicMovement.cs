@@ -18,14 +18,30 @@ public class basicMovement : MonoBehaviour
     public bool grounded = true;
     public bool jumping = false;
 
+    public Vector2 DamageKick = new Vector2(200,100);
+
     private Animator animator;
+    private AudioSource audioSource;
+
+    public AudioClip damagedClip;
+    public AudioClip attackClip;
+    public AudioClip deathClip;
+    public AudioClip healedClip;
+    public AudioClip pickupClip;
+    public AudioClip jumpClip;
+
 
     ContactFilter2D cf = new ContactFilter2D();
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        if (GetComponent<Animator>())
+            animator = GetComponent<Animator>();
+        if (GetComponent<AudioSource>())
+            audioSource = GetComponent<AudioSource>();
+
+        //audioSource.PlayOneShot(damaged);
     }
 
     // Update is called once per frame
@@ -85,35 +101,32 @@ public class basicMovement : MonoBehaviour
                 rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
             }
 
-            if (rb.velocity.x > 0)
+            if (Input.GetAxis("Horizontal") > 0)
             {
                 facingLeft = false;
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-            else if (rb.velocity.x < 0)
+            else if (Input.GetAxis("Horizontal") < 0)
             {
                 facingLeft = true;
                 transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-
-
-
         }
 
         if (Input.GetButtonDown("Jump")) 
         {
+            animator.SetBool("jumping", true);
             if (grounding.IsTouching(cf.NoFilter()))
             {
                 grounded = true;
-                
             }
             else { grounded = false; }
-        if (grounded) 
+            if (grounded) 
             {
+                audioSource.PlayOneShot(jumpClip);
                 rb.AddForce(new Vector2(0, jumpHeight));
                 grounded = false;
                 jumping = true;
-                animator.SetBool("jumping", true);
             }
         }
 
@@ -121,7 +134,14 @@ public class basicMovement : MonoBehaviour
         {
             if (Input.GetButton("Jump"))
             {
+                animator.SetBool("jumping", true);
                 rb.AddForce(new Vector2(0, airFloat * Time.deltaTime));
+
+                if (rb.velocity.y < -1) 
+                {
+                    jumping = false;
+                }
+
             }
             else 
             {
@@ -129,15 +149,12 @@ public class basicMovement : MonoBehaviour
             }
         }
 
-        if (rb.velocity.y == 0)
-        {
-            animator.SetBool("jumping", false);
-        }
 
 
         if (!grounded)
         {
             animator.SetBool("jumping", true);
+            
             if (!jumping)
             {
                 rb.AddForce(new Vector2(0, -airFloat * 2 * Time.deltaTime));
@@ -146,16 +163,49 @@ public class basicMovement : MonoBehaviour
             if (grounding.IsTouching(cf.NoFilter()))
             {
                 grounded = true;
+                animator.SetBool("jumping", false);
             }
         }
         else 
         {
+            if (!grounding.IsTouching(cf.NoFilter()))
+            {
+                grounded = false;
+            }
+            animator.SetBool("jumping", false);
         }
 
         if (Input.GetButtonDown("Fire1")) 
         {
+            audioSource.PlayOneShot(attackClip);
             animator.SetTrigger("attacking");
         }
 
+        animator.SetBool("Grounded", grounded);
+
     }
+
+    public void Damaged(bool left) 
+    {
+        audioSource.PlayOneShot(damagedClip);
+        if (left)
+        {
+            rb.AddForce(new Vector2(-DamageKick.x, DamageKick.y));
+        }
+        else 
+        {
+            rb.AddForce(DamageKick);
+        }
+    }
+
+    public void Died() 
+    {
+        audioSource.PlayOneShot(deathClip);
+    }
+
+    public void Healed() 
+    {
+        audioSource.PlayOneShot(healedClip);
+    }
+
 }

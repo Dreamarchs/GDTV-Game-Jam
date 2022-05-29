@@ -88,14 +88,9 @@ public class EnemyBase : character
     {
         isFacingLeft = left;
         if (left)
-        {
-            
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        }
         else
-        {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        }
     }
 
     public void SetGrounded(bool b) { isGrounded = b; }
@@ -159,25 +154,34 @@ public class EnemyBase : character
         enemyState = EnemyState.Inactive;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (bodyDamage) {
             if (collision.gameObject == target.gameObject)
             {
-                playerHealth.SendMessage("Damage", attackDamage);
+                playerHealth.SendMessage("Damage", SelfAS());
             }
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (bodyDamage)
         {
             if (collision.gameObject == target.gameObject)
             {
-                target.SendMessage("Damage", attackDamage);
+                target.SendMessage("Damage", SelfAS());
             }
         }
+    }
+    */
+    public override AttackStruct SelfAS()
+    {
+        return new AttackStruct(attackDamage,gameObject,_rigidBody2D.velocity);
+    }
+    public override AttackStruct SelfAS(int damage)
+    {
+        return new AttackStruct(damage, gameObject, _rigidBody2D.velocity);
     }
 
 }

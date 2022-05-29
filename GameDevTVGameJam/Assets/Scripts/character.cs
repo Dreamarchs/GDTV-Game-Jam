@@ -36,7 +36,13 @@ public class character : MonoBehaviour
         //Debug.Log($"damaged {dam}");
     }
 
-    public void Heal(int heal) 
+    public virtual void Damage(AttackStruct attack)
+    {
+        Damage(attack.damage);
+        //Debug.Log($"damaged {dam}");
+    }
+
+    public virtual  void Heal(int heal) 
     {
         HP += Mathf.Abs(heal);
 
@@ -63,4 +69,62 @@ public class character : MonoBehaviour
     
     }
 
+    public virtual AttackStruct SelfAS() 
+    {
+        return new AttackStruct(gameObject);
+    }
+    public virtual AttackStruct SelfAS(int damage)
+    {
+        return new AttackStruct(damage, gameObject);
+    }
+
+    public virtual AttackStruct SelfAS(int damage, Vector2 velocity)
+    {
+        return new AttackStruct(damage, gameObject, velocity);
+    }
+
+}
+
+
+public struct AttackStruct
+{
+    public int damage;
+    public GameObject attacker;
+    public GameObject source;
+    public Transform attackTransform;
+    public Vector2 velocity;
+
+    public AttackStruct(GameObject a)
+    {
+        damage = 1;
+        attacker = a;
+        source = a;
+        attackTransform = a.transform;
+        velocity = new Vector2(0, 0);
+    }
+
+    public AttackStruct(int d, GameObject a) 
+    {
+        damage = d;
+        attacker = a;
+        source = a;
+        attackTransform = a.transform;
+        velocity = new Vector2(0, 0);
+    }
+    public AttackStruct(GameObject a, Vector2 vel)
+    {
+        damage = 1;
+        attacker = a;
+        source = a;
+        attackTransform = a.transform;
+        velocity = vel;
+    }
+    public AttackStruct(int d, GameObject a, Vector2 vel)
+    {
+        damage = d;
+        attacker = a;
+        source = a;
+        attackTransform = a.transform;
+        velocity = vel;
+    }
 }
