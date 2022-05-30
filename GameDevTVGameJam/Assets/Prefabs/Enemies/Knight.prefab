@@ -431,6 +431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfcb1860ca17b6d4c83bea98329716b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ph: {fileID: 0}
+  bm: {fileID: 0}
+  eb: {fileID: 0}
 --- !u!1 &3616306007837536322
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d716494d5f06394c8d3a2436b56c0c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHP: 10
+  startHP: 1
   isPlayer: 0
   visibleHealth: 0
   acceleration: 1
@@ -551,12 +554,20 @@ MonoBehaviour:
   chaseTrigger: {fileID: 3616306006546249528}
   shieldRelay: {fileID: 3616306006732008180}
   isGrounded: 0
+  scoreValue: 500
   _rigidBody2D: {fileID: 3616306007837536323}
   bodyDamage: 1
   doesAttack: 1
   EnemyName: Monster
   enemyState: 6
   isPlayerLeft: 1
+  audioSource: {fileID: 0}
+  enemySounds:
+    DeathSound: {fileID: 0}
+    BlockSound: {fileID: 0}
+    HurtSound: {fileID: 0}
+    HitOtherSound: {fileID: 0}
+    JumpSound: {fileID: 0}
   actionDelay: 1
   attackLag: 0.25
   attackDuration: 1

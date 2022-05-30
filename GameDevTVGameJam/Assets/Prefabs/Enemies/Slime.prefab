@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bbfb9edb46691f74ba5397365ab6976c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6f6cf7f5ef923bf498feec83bf3054f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812d8d2e588d31640b4d80d33af1573c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHP: 2
+  startHP: 1
   isPlayer: 0
   visibleHealth: 0
   acceleration: 1
@@ -157,12 +157,20 @@ MonoBehaviour:
   chaseTrigger: {fileID: 2935772150049587822}
   shieldRelay: {fileID: 2935772149830606754}
   isGrounded: 0
+  scoreValue: 500
   _rigidBody2D: {fileID: 2935772148724679957}
   bodyDamage: 1
   doesAttack: 0
   EnemyName: Slime
   enemyState: 6
   isPlayerLeft: 1
+  audioSource: {fileID: 0}
+  enemySounds:
+    DeathSound: {fileID: 0}
+    BlockSound: {fileID: 0}
+    HurtSound: {fileID: 0}
+    HitOtherSound: {fileID: 0}
+    JumpSound: {fileID: 0}
   isAggro: 1
   minHop: {x: 100, y: 100}
   maxHop: {x: 150, y: 150}
@@ -488,6 +496,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfcb1860ca17b6d4c83bea98329716b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ph: {fileID: 0}
+  bm: {fileID: 0}
+  eb: {fileID: 0}
 --- !u!1 &2935772150049587811
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,13 @@ using UnityEngine;
 public class PlayerHealth : character
 {
     private basicMovement playerMove;
+    public int score;
+
+    private AudioSource AS;
+
+    public AudioClip healFanfare;
+    public AudioClip scoreItemFanfare;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -12,6 +19,14 @@ public class PlayerHealth : character
         if (GetComponent<basicMovement>()) 
         {
             playerMove = GetComponent<basicMovement>();
+        }
+        if (GameObject.Find("Main Camera")) 
+        {
+            GameObject cam = GameObject.Find("Main Camera");
+            if (cam.GetComponent<AudioSource>()) 
+            {
+                AS = cam.GetComponent<AudioSource>();
+            }
         }
     }
 
@@ -43,6 +58,14 @@ public class PlayerHealth : character
     public override void Heal(int heal) 
     {
         base.Heal(heal);
+        AS.PlayOneShot(healFanfare);
         playerMove.Healed();
+
+    }
+
+    public void AddScore(int _score) 
+    {
+        AS.PlayOneShot(scoreItemFanfare);
+        score += Mathf.Abs(_score);
     }
 }

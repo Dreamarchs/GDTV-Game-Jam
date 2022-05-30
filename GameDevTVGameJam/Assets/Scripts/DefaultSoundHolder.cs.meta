@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: ef276ffd08547fa46a21042af10a29c1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - enemyDeath: {fileID: 8300000, guid: 1ed7545e5c73f8743b1129e38518f7a8, type: 3}
+  - enemyHurt: {fileID: 8300000, guid: c222293f8da22b4468f32a395c222d14, type: 3}
+  - enemyBlock: {fileID: 8300000, guid: 8d7451cd06f3c2b47a76eb46d17b2b55, type: 3}
+  - enemyHitOther: {fileID: 8300000, guid: 2933ec81ea4f8004c8064f56d9edf193, type: 3}
+  - enemyJump: {fileID: 8300000, guid: 1f4d59fda440f34498ed0e70b6f0fc03, type: 3}
+  - breakableBreak: {fileID: 8300000, guid: bc26a4957482d6a439be56e9a6edab5d, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

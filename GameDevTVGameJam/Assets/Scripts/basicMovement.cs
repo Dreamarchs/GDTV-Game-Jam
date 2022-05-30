@@ -13,10 +13,23 @@ public class basicMovement : MonoBehaviour
     public float jumpHeight; // Starting jump
     public float airFloat; // Post initial jump "jump" stuff
 
+    public float attackTime;
+    public float lagTime;
+    public GameObject attackHitbox;
+    private float attackTimer;
+
+    public int power = 1;
+
+    public int specialPower = 5;
+    public GameObject specialAttack;
+    public Transform specialSpawn;
+
     public bool facingLeft = false;
 
     public bool grounded = true;
     public bool jumping = false;
+
+    public int damage = 1;
 
     public Vector2 DamageKick = new Vector2(200,100);
 
@@ -30,16 +43,21 @@ public class basicMovement : MonoBehaviour
     public AudioClip pickupClip;
     public AudioClip jumpClip;
 
+    public AudioClip powerFanfare;
+    public AudioClip UpgradeFanfare;
+
 
     ContactFilter2D cf = new ContactFilter2D();
 
     // Start is called before the first frame update
     void Start()
     {
+        attackHitbox.SetActive(false);
+
         if (GetComponent<Animator>())
             animator = GetComponent<Animator>();
-        if (GetComponent<AudioSource>())
-            audioSource = GetComponent<AudioSource>();
+        if (GameObject.Find("Main Camera").GetComponent<AudioSource>())
+            audioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
 
         //audioSource.PlayOneShot(damaged);
     }
@@ -47,6 +65,19 @@ public class basicMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (attackTimer > 0)
+        {
+            attackTimer -= Time.deltaTime;
+            if (attackTimer - lagTime < 0)
+            {
+                attackHitbox.SetActive(false);
+            }
+        }
+        else 
+        {
+            if (attackHitbox.activeSelf == true)
+                attackHitbox.SetActive(false);
+        }
 
         if (rb.velocity.x != 0)
         {
@@ -177,8 +208,22 @@ public class basicMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1")) 
         {
-            audioSource.PlayOneShot(attackClip);
-            animator.SetTrigger("attacking");
+            if ((attackTimer <= 0)) 
+            {
+                audioSource.PlayOneShot(attackClip);
+                animator.SetTrigger("attacking");
+                attackHitbox.SetActive(true);
+                attackTimer = attackTime + lagTime;
+            }
+        }
+
+        if (Input.GetButtonDown("Fire2")) 
+        {
+            if (power >= specialPower) 
+            {
+                power -= specialPower;
+                GameObject.Instantiate(specialAttack, specialSpawn.position, specialSpawn.rotation);
+            }
         }
 
         animator.SetBool("Grounded", grounded);
@@ -198,6 +243,12 @@ public class basicMovement : MonoBehaviour
         }
     }
 
+    public void AddPower(int _power) 
+    {
+        power += Mathf.Abs(_power);
+        audioSource.PlayOneShot(powerFanfare);
+    }
+
     public void Died() 
     {
         audioSource.PlayOneShot(deathClip);
@@ -206,6 +257,12 @@ public class basicMovement : MonoBehaviour
     public void Healed() 
     {
         audioSource.PlayOneShot(healedClip);
+    }
+
+    public void Upgrade() 
+    {
+        damage++;
+        audioSource.PlayOneShot(UpgradeFanfare);
     }
 
 }

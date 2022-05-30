@@ -67,6 +67,7 @@ public class Slime : EnemyBase
 
     public void Hop() 
     {
+        audioSource.PlayOneShot(enemySounds.JumpSound);
         if (isAggro)
             if (attackTrigger.playerTouching)
                 enemyState = EnemyState.Attacking;

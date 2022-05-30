@@ -7,7 +7,6 @@ public class EnemyBase : character
 
     public float acceleration = 1; // How fast the enemy can accelerate/gain speed
     public float maxSpeed = 10; // How fast the enemy can go
-
     public float hitStunDur = 1; // How long getting hit should stun the enemy
     public float hitStun = 0; // The hit stun timer
     public bool isStunned; // If the enemy is stunned
@@ -19,13 +18,13 @@ public class EnemyBase : character
     protected Collider2D playerCollider;
 
     public Collider2D groundCollider;  // Tells the Enemy if its on the ground
-
     public EnemyTriggerRelay attackTrigger;// The collider that tells the enemy its okay to attack
     public EnemyTriggerRelay unsafeTrigger;// The collider that tells the enemy to move away
     public EnemyTriggerRelay chaseTrigger;// Tells the enemy to approach the player
     public ShieldRelay shieldRelay;//Tells the enemy if a attack should be blocked
-
     public bool isGrounded;
+
+    public int scoreValue = 500; // The score the player receives for killing the enemy 
 
     public Rigidbody2D _rigidBody2D;
 
@@ -39,10 +38,43 @@ public class EnemyBase : character
     public bool isPlayerLeft = true; // Bool to determine chasing/retreating direction
     protected bool isFacingLeft = true;
 
+    public AudioSource audioSource;
+    public EnemySounds enemySounds;
+    
+
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
+        if (GameObject.Find("Main Camera")) 
+        {
+            GameObject cam = GameObject.Find("Main Camera");
+
+            if (audioSource == null)
+            {
+                if (cam.GetComponent<AudioSource>())
+                    audioSource = cam.GetComponent<AudioSource>();
+            }
+
+            if (cam.GetComponent<DefaultSoundHolder>())
+            {
+                DefaultSoundHolder DFS = cam.GetComponent<DefaultSoundHolder>();
+
+                if (enemySounds.DeathSound == null)
+                    enemySounds.DeathSound = DFS.enemyDeath;
+                if (enemySounds.HurtSound == null)
+                    enemySounds.HurtSound = DFS.enemyHurt;
+                if (enemySounds.BlockSound == null)
+                    enemySounds.BlockSound = DFS.enemyBlock;
+                if (enemySounds.HitOtherSound == null)
+                    enemySounds.HitOtherSound = DFS.enemyBlock;
+                if (enemySounds.JumpSound == null)
+                    enemySounds.JumpSound = DFS.enemyJump;
+            }
+         }
+        
+
+
        // Debug.Log("Test");
         if (_rigidBody2D == null) 
         {
@@ -103,6 +135,7 @@ public class EnemyBase : character
             if (!usesShield)
             {
                 base.Damage(dam);
+                audioSource.PlayOneShot(enemySounds.HurtSound);
                 isStunned = true;
                 hitStun = hitStunDur;
             }
@@ -141,7 +174,9 @@ public class EnemyBase : character
 
         if (shieldRelay.shieldHit)
         {
+            audioSource.PlayOneShot(enemySounds.BlockSound);
             return true;
+
         }
 
         return false;
@@ -150,7 +185,11 @@ public class EnemyBase : character
 
     public override void Die() 
     {
-        //Destroy(gameObject);
+        audioSource.PlayOneShot(enemySounds.DeathSound);
+        if (GameObject.Find("PlayerModel"))
+            GameObject.Find("PlayerModel").SendMessage("AddScore", scoreValue);
+
+        Destroy(gameObject);
         enemyState = EnemyState.Inactive;
     }
 
@@ -185,6 +224,16 @@ public class EnemyBase : character
     }
 
 }
+[System.Serializable]
+public struct EnemySounds 
+{
+    [SerializeField] public AudioClip DeathSound;
+    [SerializeField] public AudioClip BlockSound;
+    [SerializeField] public AudioClip HurtSound;
+    [SerializeField] public AudioClip HitOtherSound;
+    [SerializeField] public AudioClip JumpSound;
+}
+
 
 public enum EnemyState 
 { 
